@@ -22,7 +22,7 @@ export default function ListPage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const API_BASE = "http://localhost:4000";
+  const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
   // Build image URL (backend serves /uploads statically)
   const getImageUrl = (imagePath) => {

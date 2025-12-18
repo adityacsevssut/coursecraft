@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { bookingsStyles } from "../../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 const BookingsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");

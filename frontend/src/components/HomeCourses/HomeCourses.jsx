@@ -6,7 +6,7 @@ import { useUser, useAuth } from "@clerk/clerk-react";
 import { toast, ToastContainer, Slide } from "react-toastify";
 
 // Use env var or fallback
-const API_BASE = "https://coursecraft-backend-gjbh.onrender.com/";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 const HomeCourses = () => {
   const navigate = useNavigate();

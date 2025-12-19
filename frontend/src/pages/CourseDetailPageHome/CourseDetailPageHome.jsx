@@ -25,7 +25,7 @@ import {
 
 import { useUser, useAuth } from "@clerk/clerk-react";
 
-const API_BASE = "https://coursecraft-backend-gjbh.onrender.com/";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 const fmtMinutes = (mins) => {
   const h = Math.floor((mins || 0) / 60);

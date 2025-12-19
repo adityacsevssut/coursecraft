@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000;
 // Middleware
 app.use(
   cors({
-    origin: ["https://coursecraft-fs.onrender.com/", "https://coursecraft-admin.onrender.com"],
+    origin: ["https://coursecraft-fs.onrender.com", "https://coursecraft-admin.onrender.com"],
     credentials: true,
   })
 );

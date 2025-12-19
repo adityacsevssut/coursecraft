@@ -8,7 +8,7 @@ import {
 import { useUser, useAuth } from "@clerk/clerk-react";
 import toast from "react-hot-toast";
 
-const API_BASE = "https://coursecraft-backend-gjbh.onrender.com/";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 const MyCourses = () => {
   const navigate = useNavigate();

@@ -20,7 +20,7 @@ import {
 import { toast, Toaster } from "react-hot-toast";
 import { addPageStyles } from "../../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 /** Helpers **/
 

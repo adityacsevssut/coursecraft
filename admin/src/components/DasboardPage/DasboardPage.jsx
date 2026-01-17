@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { dashboardStyles } from "../../assets/dummyStyles"; // adjust path if needed
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
 
 const fmtCurrency = (n) => {
   if (n == null) return "₹0";

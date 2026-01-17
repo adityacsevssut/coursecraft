@@ -13,7 +13,11 @@ const port = process.env.PORT || 4000;
 // Middleware
 app.use(
   cors({
+<<<<<<< HEAD
     origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
+=======
+    origin: ["https://coursecraft-fs.onrender.com", "https://coursecraft-admin.onrender.com"],
+>>>>>>> 28a7c33a83fdcb4b1b942f75e7dd3f3f77ded8ce
     credentials: true,
   })
 );

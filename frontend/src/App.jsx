@@ -3,8 +3,12 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
-import Faculty from "./pages/Faculty/Faculty";
 import Courses from "./pages/Courses/Courses";
+import CGPA from "./pages/CGPA/CGPA";
+import CGPAResultPage from "./pages/CGPAResult/CGPAResultPage";
+import AttendanceTracker from "./pages/AttendanceTracker/AttendanceTracker";
+import AttendanceForm from "./pages/AttendanceForm/AttendanceForm";
+import AttendanceResult from "./pages/AttendanceResult/AttendanceResult";
 import { ArrowUp } from "lucide-react";
 import CourseDetailPageHome from "./pages/CourseDetailPageHome/CourseDetailPageHome";
 import CourseDetailPage from "./pages/CourseDetailPage/CourseDetailPage";
@@ -71,9 +75,13 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/faculty" element={<Faculty />} />
         <Route path="/courses" element={<Courses />} />
-             <Route path="/mycourses" element={<MyCoursePage />} />
+        <Route path="/calculate-cgpa" element={<CGPA />} />
+        <Route path="/cgpa-result" element={<CGPAResultPage />} />
+        <Route path="/attendance-tracker" element={<AttendanceTracker />} />
+        <Route path="/attendance-form" element={<AttendanceForm />} />
+        <Route path="/attendance-result/:id" element={<AttendanceResult />} />
+        <Route path="/mycourses" element={<MyCoursePage />} />
 
         <Route
           path="/course/:id"
@@ -91,7 +99,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-                <Route path="/booking/success" element={<VerifyPaymentPage />} />
+        <Route path="/booking/success" element={<VerifyPaymentPage />} />
         <Route path="/booking/cancel" element={<VerifyPaymentPage />} />
       </Routes>
 

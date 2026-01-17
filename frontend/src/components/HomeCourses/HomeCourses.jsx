@@ -33,7 +33,7 @@ const HomeCourses = () => {
   useEffect(() => {
     try {
       localStorage.setItem("userCourseRatings", JSON.stringify(userRatings));
-    } catch {}
+    } catch { }
   }, [userRatings]);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const HomeCourses = () => {
     };
   }, []);
 
- const showLoginToast = () => {
+  const showLoginToast = () => {
     toast.error("Please login to access this course", {
       position: "top-right",
       transition: Slide,
@@ -107,7 +107,7 @@ const HomeCourses = () => {
     navigate(`/course/${id}`);
   };
 
-const handleBrowseClick = () => {
+  const handleBrowseClick = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -170,11 +170,11 @@ const handleBrowseClick = () => {
         prev.map((c) =>
           c.id === courseId
             ? {
-                ...c,
-                avgRating: typeof avg === "number" ? avg : c.avgRating,
-                totalRatings:
-                  typeof total === "number" ? total : c.totalRatings,
-              }
+              ...c,
+              avgRating: typeof avg === "number" ? avg : c.avgRating,
+              totalRatings:
+                typeof total === "number" ? total : c.totalRatings,
+            }
             : c
         )
       );
@@ -235,11 +235,10 @@ const handleBrowseClick = () => {
                 onMouseLeave={() =>
                   setHoverRatings((s) => ({ ...s, [course.id]: 0 }))
                 }
-                className={`${homeCoursesStyles.starButton} ${
-                  filled
+                className={`${homeCoursesStyles.starButton} ${filled
                     ? homeCoursesStyles.starButtonActive
                     : homeCoursesStyles.starButtonInactive
-                }`}
+                  }`}
                 style={{ background: "transparent" }}
               >
                 <Star
@@ -277,9 +276,7 @@ const handleBrowseClick = () => {
       <div className={homeCoursesStyles.mainContainer}>
         <div className={homeCoursesStyles.header}>
           <h2 className={`${title || ""} ${homeCoursesStyles.title}`}>
-            <Star className={homeCoursesStyles.titleIcon} />
             Explore Top Courses
-            <Star className={homeCoursesStyles.titleIcon} />
           </h2>
         </div>
 
@@ -315,17 +312,15 @@ const handleBrowseClick = () => {
 
                     <div className={homeCoursesStyles.courseInfo}>
                       <h3
-                        className={`${course || ""} ${
-                          homeCoursesStyles.courseName
-                        }`}
+                        className={`${course || ""} ${homeCoursesStyles.courseName
+                          }`}
                       >
                         {courseItem.name}
                       </h3>
 
                       <div
-                        className={`${detail || ""} ${
-                          homeCoursesStyles.teacherInfo
-                        }`}
+                        className={`${detail || ""} ${homeCoursesStyles.teacherInfo
+                          }`}
                       >
                         <User
                           size={15}

@@ -118,7 +118,7 @@ export default function Testimonial() {
       <div className={testimonialStyles.container}>
         <div className={testimonialStyles.badge}>
           <div className={testimonialStyles.badgeDot}></div>
-          <span className={testimonialStyles.badgeText}>Student Testimonials</span>
+          <span className={testimonialStyles.badgeText}>Students Feedback</span>
         </div>
 
         <h2 className={testimonialStyles.title}>

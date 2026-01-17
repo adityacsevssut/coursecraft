@@ -70,12 +70,12 @@ const AboutUsPage = () => {
         <div className={aboutUsStyles.heroBackground}>
           {/* Background image (slightly reduced opacity and scaled for parallax feel) */}
           <div
-  className={aboutUsStyles.heroImageContainer}
-  style={{
-    backgroundImage: `url(${AboutBanner})`,
-    opacity: 0.85,
-  }}
-/>
+            className={aboutUsStyles.heroImageContainer}
+            style={{
+              backgroundImage: `url(${AboutBanner})`,
+              opacity: 0.85,
+            }}
+          />
 
 
           {/* Top-and-bottom vignette */}
@@ -133,21 +133,18 @@ const AboutUsPage = () => {
       {missionVisionValues.map((section, index) => (
         <section
           key={section.type}
-          className={`${aboutUsStyles.sectionContainer} ${section.bgColor} ${
-            index % 2 === 1 ? "bg-white" : ""
-          }`}
+          className={`${aboutUsStyles.sectionContainer} ${section.bgColor} ${index % 2 === 1 ? "bg-white" : ""
+            }`}
         >
           <div className={aboutUsStyles.sectionGrid}>
             <div
-              className={`${aboutUsStyles.sectionContentGrid} ${
-                index % 2 === 1 ? "lg:grid-flow-dense" : ""
-              }`}
+              className={`${aboutUsStyles.sectionContentGrid} ${index % 2 === 1 ? "lg:grid-flow-dense" : ""
+                }`}
             >
               {/* Image Section */}
               <div
-                className={`${aboutUsStyles.sectionImageContainer} ${
-                  index % 2 === 1 ? "lg:col-start-2" : ""
-                }`}
+                className={`${aboutUsStyles.sectionImageContainer} ${index % 2 === 1 ? "lg:col-start-2" : ""
+                  }`}
               >
                 <div className={aboutUsStyles.sectionImage}>
                   <DotLottieReact src={section.dotLottie} loop autoplay />
@@ -156,9 +153,8 @@ const AboutUsPage = () => {
 
               {/* Content Section */}
               <div
-                className={`${aboutUsStyles.sectionContent} ${
-                  index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""
-                }`}
+                className={`${aboutUsStyles.sectionContent} ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""
+                  }`}
               >
                 <div className={aboutUsStyles.sectionBadge}>
                   <section.icon
@@ -256,95 +252,6 @@ const AboutUsPage = () => {
                 <div
                   className={`${aboutUsStyles.valueUnderline} ${value.color}`}
                 ></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Team Section */}
-      <section className={aboutUsStyles.teamSection}>
-        <div className={aboutUsStyles.sectionGrid}>
-          <div className={aboutUsStyles.teamHeader}>
-            <h2 className={aboutUsStyles.teamTitle}>
-              Meet Our CourseCraft Admin
-            </h2>
-            <p className={aboutUsStyles.teamSubtitle}>
-              Passionate Mentors, innovators, and visionaries dedicated to
-              your success
-            </p>
-          </div>
-          <div className={aboutUsStyles.teamGrid}>
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className={aboutUsStyles.teamMember}
-              >
-                <div className={aboutUsStyles.teamImageContainer}>
-                  <div className={aboutUsStyles.teamImage}>
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                </div>
-                <h3 className={aboutUsStyles.teamName}>
-                  {member.name}
-                </h3>
-                <div className={aboutUsStyles.teamRole}>
-                  {member.role}
-                </div>
-                <p className={aboutUsStyles.teamBio}>{member.bio}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className={aboutUsStyles.testimonialsSection}>
-        <div className={aboutUsStyles.sectionGrid}>
-          <div className={aboutUsStyles.testimonialsHeader}>
-            <h2 className={aboutUsStyles.testimonialsTitle}>
-              What Our Students Say
-            </h2>
-            <p className={aboutUsStyles.testimonialsSubtitle}>
-              Real stories from real learners who transformed their careers
-            </p>
-          </div>
-          <div className={aboutUsStyles.testimonialsGrid}>
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className={aboutUsStyles.testimonialCard}
-              >
-                <div className={aboutUsStyles.testimonialStars}>
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={aboutUsStyles.testimonialStar}
-                    />
-                  ))}
-                </div>
-                <p className={aboutUsStyles.testimonialText}>
-                  "{testimonial.text}"
-                </p>
-                <div className={aboutUsStyles.testimonialAuthor}>
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className={aboutUsStyles.testimonialAvatar}
-                  />
-                  <div>
-                    <div className={aboutUsStyles.testimonialAuthorName}>
-                      {testimonial.name}
-                    </div>
-                    <div className={aboutUsStyles.testimonialAuthorRole}>
-                      {testimonial.role}
-                    </div>
-                  </div>
-                </div>
               </div>
             ))}
           </div>

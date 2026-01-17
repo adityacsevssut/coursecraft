@@ -24,9 +24,10 @@ url: 'https://www.linkedin.com/in/aditya-nahak-813236373'
 
 
 export const quickLinks = [
-{ name: 'Courses', href: '/courses', iconKey: 'BookOpen' },
+{name: 'Courses', href: '/courses', iconKey: 'BookOpen' },
+{ name: 'CGPA Calculator', href: '/calculate-cgpa', iconKey: 'FileText' },
+{ name: 'Attendance Tracker', href: '/attendance-tracker', iconKey: 'BookOpen' },
 { name: 'About Us', href: '/about', iconKey: 'Users' },
-{ name: 'Faculty', href: '/faculty', iconKey: 'FileText' },
 { name: 'Contact', href: '/contact', iconKey: 'Mail' }
 ];
 

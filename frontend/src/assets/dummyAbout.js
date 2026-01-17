@@ -74,20 +74,20 @@ export const statsMeta = [
   },
 ];
 
-export const missionVisionValues = [
+export const missionVisionValues =  [
   {
     type: "mission",
     icon: Target,
     title: "Our Mission",
-    subtitle: "Open Access Global Education",
+    subtitle: "To simplify and organize student life.",
     description:
-      "To make high-quality education accessible and affordable for everyone, everywhere. We believe learning should have no boundaries.",
+      "Created A Smart Learnining Management System And Also Cgpa Calculator And A daily To Do Manager Feature Is also Available.",
     dotLottie: "https://lottie.host/d4aed205-8352-4490-a20a-83e4b3b3e2f6/f3nl34gaEN.lottie",
     features: [
-      "Accessible to all backgrounds",
-      "Affordable pricing models",
-      "Global learning community",
-      "Industry-relevant skills",
+      "To simplify and organize student life.",
+      "Track performance effortlessly",
+      "Stay organized and productive",
+      "Learn smarter from one platform",
     ],
     color: "from-blue-600 to-cyan-600",
     bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100",
@@ -96,38 +96,38 @@ export const missionVisionValues = [
     type: "vision",
     icon: Eye,
     title: "Our Vision",
-    subtitle: "Shaping Future Leaders",
+    subtitle: "Learn smarter from one platform",
     description:
-      "To create a world where anyone can learn, grow, and achieve their full potential through transformative educational experiences.",
+      "Our vision is to create a future where every student manages learning, performance, and productivity seamlessly through a single intelligent platform.",
     dotLottie: "https://lottie.host/591f8a0f-faba-495a-9a38-ff1bf44b5fad/W30zLs2vep.lottie",
     features: [
-      "Lifelong learning journeys",
-      "Future-ready skills",
-      "Global impact",
-      "Innovation in education",
+      "Simplify academic management",
+      "Track performance effortlessly",
+      "Stay organized and productive",
+      "Learn smarter from one platform",
     ],
     color: "from-purple-600 to-pink-600",
     bgColor: "bg-gradient-to-br from-purple-50 to-pink-100",
   },
   {
-    type: "values",
-    icon: Heart,
-    title: "Our Values",
-    subtitle: "Principles That Guide Us",
-    description:
-      "Our core values shape every decision we make and define our commitment to students, instructors, and the global community.",
-    dotLottie: "https://lottie.host/4cf976d2-0a1a-4017-b021-c3fe2b0a4c18/ksM0OM58Dd.lottie",
-    features: [
-      "Student success first",
-      "Excellence in teaching",
-      "Innovation & creativity",
-      "Community & collaboration",
-    ],
-    color: "from-green-600 to-emerald-600",
-    bgColor: "bg-gradient-to-br from-green-50 to-emerald-100",
-  },
-];
+  type: "values",
+  icon: Heart,
+  title: "Our Values",
+  subtitle: "What Drives Us",
+  description:
+    "Our values guide how we build, improve, and deliver a meaningful academic experience for students and educators.",
+  dotLottie: "https://lottie.host/4cf976d2-0a1a-4017-b021-c3fe2b0a4c18/ksM0OM58Dd.lottie",
+  features: [
+    "Students at the core",
+    "Quality-driven learning",
+    "Innovation with purpose",
+    "Collaboration & growth",
+  ],
+  color: "from-green-600 to-emerald-600",
+  bgColor: "bg-gradient-to-br from-green-50 to-emerald-100",
+}
 
+];
 export const teamMembers = [
   {
     name: "Debadatta Parida",
@@ -161,33 +161,35 @@ export const teamMembers = [
 
 export const values = [
   {
-    title: "Quality Courses",
-    description:
-      "We believe in providing top-notch educational content that transforms lives through expert-curated curriculum.",
-    features: ["Expert Instructors", "Updated Content", "Industry Standards"],
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    title: "Easily Accesible",
-    description:
-      "Courses Can Be Easily Accesed By Simple Searching. Courses Are Arranged In Sequential Manner.",
-    features: ["Accesible Anywhere", "Career Support", "Community Building"],
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    title: "Continuous Creation",
-    description:
-      "We constantly evolve our platform to incorporate the latest learning technologies and methodologies.",
-    features: ["AI Learning", "Interactive Labs", "Mobile First"],
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    title: "Lifetime Access",
-    description:
-      "Learn at your own pace with lifetime access to all course materials and future updates.",
-    features: ["Forever Access", "Free Updates", "Skill Tracking"],
-    color: "from-orange-500 to-amber-500",
-  },
+  title: "CGPA Calculator",
+  description:
+    "Calculate Your CGPA Easily Through Your Midsem And EndSem Marks Directly .",
+  features: ["Midsem and Endsem Marks", "CGPA Calculation", "Easy Access"],
+  color: "from-blue-500 to-cyan-500",
+},
+{
+  title: "Learn Different Subjects",
+  description:
+    "Learn Different Subjects with Organised Manner and Built Different Type Of Skills.",
+  features: ["Search Friendly", "Anywhere Access", "User-Friendly UI", "Organised Content"],
+  features: ["Search Friendly", "Anywhere Access", "User-Friendly UI"],
+  color: "from-purple-500 to-pink-500",
+},
+{
+  title: "Track Your Attendance",
+  description:
+    "Track Your Attendance Subject Wise and Get Insights for Better Performance.",
+  features: ["Attendance Tracking", "Progress Insights", "Goal Tracking"],
+  color: "from-green-500 to-emerald-500",
+},
+{
+  title: "Task & Time Management",
+  description:
+    "Upcoming Feature...Task & Time Management will Add Soon ....",
+  features: ["Smart To-Do List", "Deadline Reminders", "Productivity Focused"],
+  color: "from-orange-500 to-amber-500",
+},
+
 ];
 
 export const milestones = [

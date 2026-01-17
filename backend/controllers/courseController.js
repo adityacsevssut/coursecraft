@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import Course from "../models/courseModel.js";
 import { getAuth } from "@clerk/express";
+import { cachedAsync, cacheMiddleware, invalidateCache } from "../utils/cache.js";
 
 /**
  * Helpers
@@ -112,31 +113,38 @@ export const getPublicCourses = async (req, res) => {
   try {
     const { home, type = "all", limit } = req.query;
 
-    let filter = {};
-    if (home === "true") {
-      filter.courseType = "top";
-    } else if (type === "top") {
-      filter.courseType = "top";
-    } else if (type === "regular") {
-      filter.courseType = "regular";
-    }
+    // Create cache key based on query parameters
+    const cacheKey = `public_courses_${home}_${type}_${limit}`;
 
-    const q = Course.find(filter).sort({ createdAt: -1 });
+    const result = await cachedAsync(cacheKey, async () => {
+      let filter = {};
+      if (home === "true") {
+        filter.courseType = "top";
+      } else if (type === "top") {
+        filter.courseType = "top";
+      } else if (type === "regular") {
+        filter.courseType = "regular";
+      }
 
-    if (home === "true") {
-      q.limit(Number(limit || 8));
-    } else if (limit) {
-      q.limit(Number(limit));
-    }
+      const q = Course.find(filter).sort({ createdAt: -1 });
 
-    const courses = await q.lean();
+      if (home === "true") {
+        q.limit(Number(limit || 8));
+      } else if (limit) {
+        q.limit(Number(limit));
+      }
 
-    const mapped = courses.map((c) => {
-      const imageUrl = makeImageAbsolute(c.image || "", req);
-      return { ...c, image: imageUrl };
-    });
+      const courses = await q.lean();
 
-    return res.json({ success: true, items: mapped });
+      const mapped = courses.map((c) => {
+        const imageUrl = makeImageAbsolute(c.image || "", req);
+        return { ...c, image: imageUrl };
+      });
+
+      return { success: true, items: mapped };
+    }, 10 * 60 * 1000); // Cache for 10 minutes
+
+    return res.json(result);
   } catch (err) {
     console.error("getPublicCourses error:", err);
     return res.status(500).json({ success: false, error: "Server error" });
@@ -149,9 +157,16 @@ export const getPublicCourses = async (req, res) => {
  */
 export const getCourses = async (req, res) => {
   try {
-    const courses = await Course.find().sort({ createdAt: -1 }).lean();
-    const mapped = courses.map((c) => ({ ...c, image: makeImageAbsolute(c.image || "", req) }));
-    return res.json({ success: true, courses: mapped });
+    // Create cache key
+    const cacheKey = 'all_courses';
+
+    const result = await cachedAsync(cacheKey, async () => {
+      const courses = await Course.find().sort({ createdAt: -1 }).lean();
+      const mapped = courses.map((c) => ({ ...c, image: makeImageAbsolute(c.image || "", req) }));
+      return { success: true, courses: mapped };
+    }, 5 * 60 * 1000); // Cache for 5 minutes
+
+    return res.json(result);
   } catch (err) {
     console.error("getCourses error:", err);
     return res.status(500).json({ success: false, error: "Server error" });
@@ -164,11 +179,23 @@ export const getCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const course = await Course.findById(id).lean();
-    if (!course) return res.status(404).json({ success: false, error: "Not found" });
+    
+    // Create cache key
+    const cacheKey = `course_${id}`;
 
-    course.image = makeImageAbsolute(course.image || "", req);
-    return res.json({ success: true, course });
+    const result = await cachedAsync(cacheKey, async () => {
+      const course = await Course.findById(id).lean();
+      if (!course) return { success: false, error: "Not found" };
+
+      course.image = makeImageAbsolute(course.image || "", req);
+      return { success: true, course };
+    }, 15 * 60 * 1000); // Cache for 15 minutes
+
+    if (!result.success) {
+      return res.status(404).json(result);
+    }
+    
+    return res.json(result);
   } catch (err) {
     console.error("getCourseById error:", err);
     return res.status(500).json({ success: false, error: "Server error" });
@@ -255,6 +282,10 @@ export const createCourse = async (req, res) => {
     const course = new Course(courseObj);
     await course.save();
 
+    // Invalidate related cache
+    invalidateCache('all_courses');
+    invalidateCache(/^public_courses_/); // Invalidate all public course caches
+    
     const returned = course.toObject();
     returned.image = makeImageAbsolute(returned.image || "", req);
 
@@ -286,6 +317,12 @@ export const deleteCourse = async (req, res) => {
     }
 
     await course.deleteOne();
+    
+    // Invalidate related cache
+    invalidateCache('all_courses');
+    invalidateCache(/^public_courses_/); // Invalidate all public course caches
+    invalidateCache(`course_${id}`); // Invalidate specific course cache
+    
     return res.json({ success: true, message: "Course deleted" });
   } catch (err) {
     console.error("deleteCourse error:", err);
@@ -343,6 +380,11 @@ export const rateCourse = async (req, res) => {
     course.avgRating = avgRating;
 
     await course.save();
+
+    // Invalidate course cache after rating update
+    invalidateCache(`course_${courseId}`);
+    invalidateCache('all_courses');
+    invalidateCache(/^public_courses_/); // Invalidate all public course caches
 
     return res.json({
       success: true,

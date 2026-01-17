@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import bannerImg from "../../assets/photo.jpg";
-import { CircleCheckBig, Sparkles, X } from "lucide-react";
-import { floatingIcons, features } from "../../assets/dummyBanner";
+import { X } from "lucide-react";
 import { bannerStyles, customStyles } from "../../assets/dummyStyles";
 import video from "../../assets/BannerVideo.mp4"
 const Banner = () => {
@@ -9,73 +8,31 @@ const Banner = () => {
 
   return (
     <div className={bannerStyles.container}>
-      {/* Floating Icons Wrapper */}
-      <div className={bannerStyles.floatingIconsWrapper}>
-        {floatingIcons.map((icon, i) => (
-          <img
-            key={i}
-            src={icon.src}
-            alt={icon.alt || ""}
-            className={`${bannerStyles.floatingIcon} ${icon.pos}`}
-            style={{
-              animationDelay: `${i * 0.35}s`,
-              willChange: "transform, opacity",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main Content */}
-      <div className={bannerStyles.mainContent}>
+      <div className={bannerStyles.contentWrapper}>
         <div className={bannerStyles.grid}>
           {/* Left Content */}
           <div className={bannerStyles.leftContent}>
-            <span className={bannerStyles.badge}>
-              <Sparkles className={bannerStyles.badgeIcon} />
-              Courses Available Here
-            </span>
 
-            <h1 className={bannerStyles.heading}>
-              <span className={bannerStyles.headingSpan1}>Learn Skills That Lead To</span>
-              <span className={bannerStyles.headingSpan2}>Internships And Placements.</span>
-            </h1>
-
-            <p className={bannerStyles.description}>
-              Build Industry-Ready Skills With Expert-Designed Courses And Hands-On Projects. Learn Modern Technologies And Start Your Career Journey Today.
-            </p>
-
-            {/* Features */}
-            <div className={bannerStyles.featuresGrid}>
-              {features.map((feature, i) => (
-                <div key={i} className={bannerStyles.featureItem}>
-                  <div className={bannerStyles.featureIconContainer}>
-                    <span
-                      className={`${bannerStyles.featureIcon} text-${feature.color}-500`}
-                    >
-                      <CircleCheckBig size={16} />
-                    </span>
-                  </div>
-                  <span className={bannerStyles.featureText}>
-                    {feature.text}
-                  </span>
-                </div>
-              ))}
+            {/* Heading Card with Get Started Button */}
+            <div className="bg-gray-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-xl animate-fade-in mb-4 relative">
+              <div className="absolute top-3 right-3">
+                <a href="/courses" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg font-semibold text-xs sm:text-sm shadow-lg transition-all">
+                  Get Started
+                </a>
+              </div>
+              <h1 className={`${bannerStyles.heading} pr-24`}>
+                <span className={bannerStyles.headingSpan1}>Develop career-ready skills</span>
+                <span className={bannerStyles.headingSpan2}>with smart learning and progress tracking.</span>
+              </h1>
             </div>
 
-            {/* Buttons */}
-            <div className={bannerStyles.buttonsContainer}>
-              <a href="/courses" className={bannerStyles.buttonGetStarted}>
-                Get Started
-              </a>
-
-              {/* View Demo → Opens Video */}
-              <button
-                onClick={() => setShowVideo(true)}
-                className={bannerStyles.buttonViewDemo}
-              >
-                View Demo
-              </button>
+            {/* Description Card */}
+            <div className="bg-gray-800/40 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-xl animate-fade-in">
+              <p className={bannerStyles.description}>
+                Learn smarter, track progress, and build career-ready skills—all in one platform.
+              </p>
             </div>
+
           </div>
 
           {/* Right Image */}
@@ -89,29 +46,29 @@ const Banner = () => {
         </div>
       </div>
 
-    {/* 🎬 Video Modal */}
-{showVideo && (
-  <div className={bannerStyles.videoModal.overlay}>
-    <div className={bannerStyles.videoModal.container}>
-      {/* Embedded YouTube video (replace with your link) */}
-      <iframe
-        className={bannerStyles.videoModal.iframe}
-        src={video}
-        title="Demo Video"
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-      ></iframe>
+      {/* 🎬 Video Modal */}
+      {showVideo && (
+        <div className={bannerStyles.videoModal.overlay}>
+          <div className={bannerStyles.videoModal.container}>
+            {/* Embedded YouTube video (replace with your link) */}
+            <iframe
+              className={bannerStyles.videoModal.iframe}
+              src={video}
+              title="Demo Video"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            ></iframe>
 
-      {/* Close Button */}
-      <button
-        onClick={() => setShowVideo(false)}
-        className={bannerStyles.videoModal.closeButton}
-      >
-        <span><X className={bannerStyles.videoModal.closeIcon}/></span>
-      </button>
-    </div>
-  </div>
-)}
+            {/* Close Button */}
+            <button
+              onClick={() => setShowVideo(false)}
+              className={bannerStyles.videoModal.closeButton}
+            >
+              <span><X className={bannerStyles.videoModal.closeIcon} /></span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Custom Animations */}
       <style jsx>{customStyles}</style>

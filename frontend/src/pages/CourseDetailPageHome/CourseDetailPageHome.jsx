@@ -42,9 +42,8 @@ const Toast = ({ message, type = "info", onClose }) => {
 
   return (
     <div
-      className={`${toastStyles.toast} ${
-        type === "error" ? toastStyles.toastError : toastStyles.toastInfo
-      }`}
+      className={`${toastStyles.toast} ${type === "error" ? toastStyles.toastError : toastStyles.toastInfo
+        }`}
     >
       <div className={toastStyles.toastContent}>
         <span>{message}</span>
@@ -91,25 +90,25 @@ const normalizeCourse = (c) => {
   const course = { ...c };
   course.lectures = Array.isArray(course.lectures)
     ? course.lectures.map((l) => {
-        const lecture = { ...l };
-        lecture.durationMin =
-          lecture.durationMin ??
-          lecture.totalMinutes ??
-          (lecture.duration?.hours || 0) * 60 +
-            (lecture.duration?.minutes || 0);
-        lecture.chapters = Array.isArray(lecture.chapters)
-          ? lecture.chapters.map((ch) => {
-              const chapter = { ...ch };
-              chapter.durationMin =
-                chapter.durationMin ??
-                chapter.totalMinutes ??
-                (chapter.duration?.hours || 0) * 60 +
-                  (chapter.duration?.minutes || 0);
-              return chapter;
-            })
-          : [];
-        return lecture;
-      })
+      const lecture = { ...l };
+      lecture.durationMin =
+        lecture.durationMin ??
+        lecture.totalMinutes ??
+        (lecture.duration?.hours || 0) * 60 +
+        (lecture.duration?.minutes || 0);
+      lecture.chapters = Array.isArray(lecture.chapters)
+        ? lecture.chapters.map((ch) => {
+          const chapter = { ...ch };
+          chapter.durationMin =
+            chapter.durationMin ??
+            chapter.totalMinutes ??
+            (chapter.duration?.hours || 0) * 60 +
+            (chapter.duration?.minutes || 0);
+          return chapter;
+        })
+        : [];
+      return lecture;
+    })
     : [];
   return course;
 };
@@ -223,7 +222,7 @@ const CourseDetail = () => {
           opts = { method: "GET", credentials: "include", headers };
         }
 
-        const q = `${API_BASE}/api/booking/check?courseId=${encodeURIComponent(
+        const q = `${API_BASE}/api/bookings/check?courseId=${encodeURIComponent(
           course._id ?? course.id ?? courseId
         )}`;
         const res = await fetch(q, opts);
@@ -348,9 +347,9 @@ const CourseDetail = () => {
     originalPrice != null && salePrice != null && originalPrice > salePrice;
   const courseIsFree = course
     ? !!course.isFree ||
-      !course.price ||
-      (!course.price.sale && !course.price.original) ||
-      course.pricingType === "free"
+    !course.price ||
+    (!course.price.sale && !course.price.original) ||
+    course.pricingType === "free"
     : true;
 
   const toggleLecture = (lectureId) => {
@@ -483,8 +482,8 @@ const CourseDetail = () => {
         salePrice != null
           ? salePrice
           : originalPrice != null
-          ? originalPrice
-          : 0;
+            ? originalPrice
+            : 0;
       const studentName = studentNameFromUser || "";
       const email = studentEmailFromUser || "";
 
@@ -522,7 +521,7 @@ const CourseDetail = () => {
         }
       }
 
-      const res = await fetch(`${API_BASE}/api/booking/create`, opts);
+      const res = await fetch(`${API_BASE}/api/bookings/create`, opts);
       const data = await res.json().catch(() => ({ success: false }));
 
       if (!res.ok || !data.success) {
@@ -543,7 +542,7 @@ const CourseDetail = () => {
           // trigger the enrollment-check effect by re-fetching booking
           // simple way: call booking/check directly here
           try {
-            const q = `${API_BASE}/api/booking/check?courseId=${encodeURIComponent(
+            const q = `${API_BASE}/api/bookings/check?courseId=${encodeURIComponent(
               payload.courseId
             )}`;
             const checkOpts =
@@ -705,9 +704,8 @@ const CourseDetail = () => {
       )}
 
       <div
-        className={`${courseDetailStylesH.mainContainer} ${
-          isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}
+        className={`${courseDetailStylesH.mainContainer} ${isPageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
       >
         <div className="flex items-center justify-between">
           <button
@@ -767,9 +765,8 @@ const CourseDetail = () => {
             </div>
 
             <div
-              className={`${courseDetailStylesH.teacherStat} ${
-                isTeacherAnimating ? "scale-110 bg-indigo-100/50" : ""
-              }`}
+              className={`${courseDetailStylesH.teacherStat} ${isTeacherAnimating ? "scale-110 bg-indigo-100/50" : ""
+                }`}
             >
               <User className={courseDetailStylesH.teacherIcon} />
               <span className={courseDetailStylesH.teacherText}>
@@ -830,8 +827,8 @@ const CourseDetail = () => {
                           {!isLoggedIn
                             ? "Login required"
                             : bookingPendingPayment
-                            ? "Payment pending"
-                            : "Enrollment required"}
+                              ? "Payment pending"
+                              : "Enrollment required"}
                         </p>
                       ) : null}
                     </div>
@@ -876,11 +873,10 @@ const CourseDetail = () => {
                       onClick={() =>
                         toggleChapterCompletion(selectedContent.chapterId)
                       }
-                      className={`${courseDetailStylesH.completionButton} ${
-                        completedChapters.has(selectedContent.chapterId)
+                      className={`${courseDetailStylesH.completionButton} ${completedChapters.has(selectedContent.chapterId)
                           ? courseDetailStylesH.completionButtonCompleted
                           : courseDetailStylesH.completionButtonIncomplete
-                      }`}
+                        }`}
                     >
                       {completedChapters.has(selectedContent.chapterId) ? (
                         <>
@@ -933,11 +929,10 @@ const CourseDetail = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div
-                      className={`${courseDetailStylesH.lectureHeader} ${
-                        expandedLectures.has(lecture.id ?? lecture._id)
+                      className={`${courseDetailStylesH.lectureHeader} ${expandedLectures.has(lecture.id ?? lecture._id)
                           ? courseDetailStylesH.lectureHeaderExpanded
                           : courseDetailStylesH.lectureHeaderNormal
-                      }`}
+                        }`}
                       onClick={() =>
                         onLectureHeaderClick(lecture.id ?? lecture._id)
                       }
@@ -945,11 +940,10 @@ const CourseDetail = () => {
                       <div className={courseDetailStylesH.lectureContent}>
                         <div className={courseDetailStylesH.lectureLeft}>
                           <div
-                            className={`${courseDetailStylesH.lectureChevron} ${
-                              expandedLectures.has(lecture.id ?? lecture._id)
+                            className={`${courseDetailStylesH.lectureChevron} ${expandedLectures.has(lecture.id ?? lecture._id)
                                 ? courseDetailStylesH.lectureChevronExpanded
                                 : courseDetailStylesH.lectureChevronNormal
-                            }`}
+                              }`}
                           >
                             <ChevronDown className="w-5 h-5" />
                           </div>
@@ -988,17 +982,16 @@ const CourseDetail = () => {
                           const isCompleted = completedChapters.has(chapId);
                           const isSelected =
                             String(selectedContent.chapterId) ===
-                              String(chapId) &&
+                            String(chapId) &&
                             String(selectedContent.lectureId) ===
-                              String(lecture.id ?? lecture._id);
+                            String(lecture.id ?? lecture._id);
                           return (
                             <div
                               key={chapId}
-                              className={`${courseDetailStylesH.chapterItem} ${
-                                isSelected
+                              className={`${courseDetailStylesH.chapterItem} ${isSelected
                                   ? courseDetailStylesH.chapterItemSelected
                                   : courseDetailStylesH.chapterItemNormal
-                              }`}
+                                }`}
                               onClick={() =>
                                 handleContentSelect(
                                   lecture.id ?? lecture._id,
@@ -1017,13 +1010,11 @@ const CourseDetail = () => {
                                       e.stopPropagation();
                                       toggleChapterCompletion(chapId, e);
                                     }}
-                                    className={`${
-                                      courseDetailStylesH.chapterCompletionButton
-                                    } ${
-                                      isCompleted
+                                    className={`${courseDetailStylesH.chapterCompletionButton
+                                      } ${isCompleted
                                         ? courseDetailStylesH.chapterCompletionCompleted
                                         : courseDetailStylesH.chapterCompletionNormal
-                                    }`}
+                                      }`}
                                   >
                                     {isCompleted ? (
                                       <CheckCircle className="w-5 h-5" />
@@ -1035,13 +1026,11 @@ const CourseDetail = () => {
                                     className={courseDetailStylesH.chapterInfo}
                                   >
                                     <div
-                                      className={`${
-                                        courseDetailStylesH.chapterName
-                                      } ${
-                                        isSelected
+                                      className={`${courseDetailStylesH.chapterName
+                                        } ${isSelected
                                           ? courseDetailStylesH.chapterNameSelected
                                           : courseDetailStylesH.chapterNameNormal
-                                      }`}
+                                        }`}
                                     >
                                       {chapter.name}
                                     </div>
@@ -1085,8 +1074,8 @@ const CourseDetail = () => {
                   {salePrice != null
                     ? formatCurrency(salePrice)
                     : originalPrice != null
-                    ? formatCurrency(originalPrice)
-                    : "Free"}
+                      ? formatCurrency(originalPrice)
+                      : "Free"}
                 </div>
                 {hasDiscount && (
                   <div className={courseDetailStylesH.pricingOriginal}>
@@ -1199,7 +1188,7 @@ const CourseDetail = () => {
                         (completedChapters.size /
                           (course.lectures?.flatMap((l) => l.chapters || [])
                             .length || 1)) *
-                          100
+                        100
                       )}
                       %
                     </span>
@@ -1208,12 +1197,11 @@ const CourseDetail = () => {
                     <div
                       className={courseDetailStylesH.progressBar}
                       style={{
-                        width: `${
-                          (completedChapters.size /
+                        width: `${(completedChapters.size /
                             (course.lectures?.flatMap((l) => l.chapters || [])
                               .length || 1)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     />
                   </div>

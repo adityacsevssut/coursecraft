@@ -1,48 +1,136 @@
 import mongoose from "mongoose";
-export const connectDB=async()=>{
-  await mongoose.connect('mongodb+srv://nahakaditya344_db_user:IJSbOQ05RfYs2FgQ@cluster0.zmkiizu.mongodb.net/L-M-S')
-  .then(()=>{console.log('DB connected')});
+
+// Cache for database connection
+let cachedConnection = null;
+let connectionPromise = null;
+
+// Connection options for better performance and reliability
+const connectionOptions = {
+  autoIndex: true,
+  maxPoolSize: 10, // Maintain up to 10 socket connections
+  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  heartbeatFrequencyMS: 10000, // Send keepalive every 10 seconds
+};
+
+export const connectDB = async () => {
+  // Return cached connection if already connected
+  if (cachedConnection && mongoose.connection.readyState === 1) {
+    console.log("✅ Using cached database connection");
+    return cachedConnection;
+  }
+
+  // Return existing connection promise if connection is in progress
+  if (connectionPromise) {
+    console.log("⏳ Waiting for existing connection attempt...");
+    return connectionPromise;
+  }
+
+  // Create new connection promise
+  connectionPromise = (async () => {
+    try {
+      console.log("🔄 Connecting to database...");
+      
+      // Use environment variable or fallback to default
+      const uri = process.env.MONGODB_URI || 
+                  process.env.MONGO_URI || 
+                  "mongodb://127.0.0.1:27017/coursecraft_lms";
+      
+      console.log(`🔗 Connecting to: ${uri.replace(/:[^:@]*@/, ':***@')}`); // Mask password in logs
+      
+      // Connect with options
+      await mongoose.connect(uri, connectionOptions);
+      
+      // Cache the connection
+      cachedConnection = mongoose.connection;
+      connectionPromise = null; // Reset promise after successful connection
+      
+      console.log("✅ Database connected successfully");
+      
+      // Connection event handlers
+      mongoose.connection.on("connected", () => {
+        console.log("📡 Mongoose connected to DB");
+      });
+      
+      mongoose.connection.on("error", (err) => {
+        console.error("❌ Mongoose connection error:", err);
+        cachedConnection = null; // Clear cache on error
+      });
+      
+      mongoose.connection.on("disconnected", () => {
+        console.log("🔌 Mongoose disconnected");
+        cachedConnection = null; // Clear cache on disconnect
+      });
+      
+      // Handle process termination
+      process.on("SIGINT", async () => {
+        await mongoose.connection.close();
+        console.log("🌙 Mongoose connection closed due to app termination");
+        process.exit(0);
+      });
+      
+      return cachedConnection;
+      
+    } catch (error) {
+      console.error("💥 Database connection failed:", error.message);
+      connectionPromise = null; // Reset promise on failure
+      cachedConnection = null; // Clear cache on failure
+      
+      // Retry logic with exponential backoff
+      const retryAttempts = 3;
+      const baseDelay = 1000; // 1 second
+      
+      for (let attempt = 1; attempt <= retryAttempts; attempt++) {
+        const delay = baseDelay * Math.pow(2, attempt - 1); // Exponential backoff
+        console.log(`⏱️  Retrying connection in ${delay/1000} seconds... (Attempt ${attempt}/${retryAttempts})`);
+        
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
+        try {
+          const uri = process.env.MONGODB_URI || 
+                      process.env.MONGO_URI || 
+                      "mongodb://127.0.0.1:27017/coursecraft_lms";
+          
+          await mongoose.connect(uri, connectionOptions);
+          cachedConnection = mongoose.connection;
+          console.log("✅ Database reconnected successfully");
+          return cachedConnection;
+        } catch (retryError) {
+          console.error(`💥 Retry attempt ${attempt} failed:`, retryError.message);
+          if (attempt === retryAttempts) {
+            throw new Error(`Failed to connect to database after ${retryAttempts} attempts`);
+          }
+        }
+      }
+    }
+  })();
   
-}
+  return connectionPromise;
+};
 
-// export const connectDB = async () => {
-//   let uri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/lms";
+// Function to check if database is connected
+export const isDatabaseConnected = () => {
+  return cachedConnection && mongoose.connection.readyState === 1;
+};
 
-//   // If an env var is set but clearly not a MongoDB URI (e.g., pasted something else), warn and fall back
-//   const isLikelyMongo = typeof uri === "string" && (uri.startsWith("mongodb://") || uri.startsWith("mongodb+srv://"));
-//   if (!isLikelyMongo) {
-//     if (process.env.MONGODB_URI || process.env.MONGO_URI) {
-//       console.warn(
-//         "Warning: MONGODB_URI/MONGO_URI appears malformed. Falling back to local MongoDB default (mongodb://127.0.0.1:27017/lms)."
-//       );
-//     }
-//     uri = "mongodb://127.0.0.1:27017/lms";
-//   }
-
-//   // Diagnostic: show resolved URI (mask credentials if present) to help identify bad env values
-//   try {
-//     const masked = String(uri).replace(/(mongodb(?:\+srv)?:\/\/)([^@\/]+@)?/, (m, p1, p2) => {
-//       if (!p2) return p1;
-//       // mask user:pass@ to user:****@
-//       const maskedCred = p2.replace(/:(.*?)@/, ':****@');
-//       return p1 + maskedCred;
-//     });
-//     console.log("Using MongoDB URI:", masked.slice(0, 180));
-//   } catch (e) {
-//     console.log("Using MongoDB URI (unable to mask):", String(uri).slice(0, 180));
-//   }
-
-//   try {
-//     await mongoose.connect(uri, {
-//       // useUnifiedTopology/useNewUrlParser not required with modern mongoose but safe to include
-//       autoIndex: true,
-//     });
-//     console.log("DB connected");
-//   } catch (err) {
-//     console.error("Failed to connect to MongoDB:", err.message || err);
-//     throw err;
-//   }
-// };
+// Function to get connection status
+export const getConnectionStatus = () => {
+  const statusMap = {
+    0: "Disconnected",
+    1: "Connected",
+    2: "Connecting",
+    3: "Disconnecting"
+  };
+  
+  return {
+    isConnected: isDatabaseConnected(),
+    status: statusMap[mongoose.connection.readyState] || "Unknown",
+    readyState: mongoose.connection.readyState,
+    host: mongoose.connection.host,
+    port: mongoose.connection.port,
+    name: mongoose.connection.name
+  };
+};
 
 // ✨ Step-by-step Instructions (Follow Step 1, then Step 2, then Step 3, …)
 

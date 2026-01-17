@@ -33,7 +33,7 @@ const MyCourses = () => {
   useEffect(() => {
     try {
       localStorage.setItem("userCourseRatings", JSON.stringify(userRatings));
-    } catch {}
+    } catch { }
   }, [userRatings]);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const MyCourses = () => {
           // ignore token acquisition failure; server will respond 401
         }
 
-        const bookingsRes = await fetch(`${API_BASE}/api/booking/my`, {
+        const bookingsRes = await fetch(`${API_BASE}/api/bookings/my`, {
           method: "GET",
           credentials: "include",
           signal: controller.signal,
@@ -104,7 +104,7 @@ const MyCourses = () => {
               try {
                 const token = await getToken().catch(() => null);
                 if (token) cHeaders.Authorization = `Bearer ${token}`;
-              } catch (e) {}
+              } catch (e) { }
 
               const courseRes = await fetch(
                 `${API_BASE}/api/course/${courseId}`,
@@ -194,7 +194,7 @@ const MyCourses = () => {
               try {
                 const token = await getToken().catch(() => null);
                 if (token) rHeaders.Authorization = `Bearer ${token}`;
-              } catch (e) {}
+              } catch (e) { }
               const res = await fetch(
                 `${API_BASE}/api/course/${c.id}/my-rating`,
                 {
@@ -207,7 +207,7 @@ const MyCourses = () => {
               if (res.ok && data && data.success && data.myRating) {
                 return { courseId: c.id, myRating: data.myRating.rating };
               }
-            } catch (err) {}
+            } catch (err) { }
             return null;
           });
 
@@ -278,11 +278,11 @@ const MyCourses = () => {
           prev.map((c) =>
             c.id === courseId
               ? {
-                  ...c,
-                  avgRating: typeof avg === "number" ? avg : c.avgRating,
-                  totalRatings:
-                    typeof total === "number" ? total : c.totalRatings,
-                }
+                ...c,
+                avgRating: typeof avg === "number" ? avg : c.avgRating,
+                totalRatings:
+                  typeof total === "number" ? total : c.totalRatings,
+              }
               : c
           )
         );

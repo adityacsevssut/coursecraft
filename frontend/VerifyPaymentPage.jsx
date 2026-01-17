@@ -44,7 +44,7 @@ const VerifyPaymentPage = () => {
       if (clerkToken) headers["Authorization"] = `Bearer ${clerkToken}`;
 
       try {
-        const res = await axios.get(`${API_BASE}/api/booking/confirm`, {
+        const res = await axios.get(`${API_BASE}/api/bookings/confirm`, {
           params: { session_id },
           headers,
           withCredentials: true, // ensure cookies sent for server getAuth

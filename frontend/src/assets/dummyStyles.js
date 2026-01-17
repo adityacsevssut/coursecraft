@@ -1738,8 +1738,8 @@
 
 
 export const bannerStyles = {
-  // Layout and container styles - Changed gradient to dark
-  container: "relative md:pt-25 xl:pt-25 pt-21 sm:min-h-[520px] md:min-h-[560px] lg:min-h-[600px] pt-6 sm:pt-20 lg:pt-25 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-8 bg-gradient-to-br from-gray-900 via-black to-blue-950 animate-gradient-bg rounded-3xl",
+  // Layout and container styles - Clean contained layout
+  container: "relative pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-28 md:pb-24 lg:pt-32 lg:pb-28 xl:pt-40 xl:pb-32 min-h-[600px] sm:min-h-[650px] md:min-h-[700px] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 bg-gradient-to-br from-gray-900 via-black to-blue-950",
   
   // Floating icons wrapper
   floatingIconsWrapper: "absolute inset-0 pointer-events-none overflow-visible z-0",
@@ -1750,20 +1750,23 @@ export const bannerStyles = {
   // Main content - Dark glassmorphism
   mainContent: "max-w-6xl w-full mx-auto bg-gray-900/60 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/10 relative z-10 p-6 sm:p-8 lg:p-12 animate-fade-in",
   
+  // Content wrapper - Clean centered layout
+  contentWrapper: "w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+  
   // Grid layout
-  grid: "grid grid-cols-1 md:grid-cols-2 gap-8 items-center",
+  grid: "grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-center",
   
   // Left content
   leftContent: "space-y-5 sm:space-y-6",
   
-  // Badge - Darker background, lighter text
-  badge: "inline-flex items-center gap-2 px-4 py-2 bg-blue-900/50 text-blue-300 border border-blue-800 rounded-full text-sm font-serif font-medium animate-fade-in",
+  // Badge - Clean sans-serif badge
+  badge: "inline-flex items-center gap-2 px-4 py-2 bg-blue-900/50 text-blue-300 border border-blue-800 rounded-full text-sm font-medium animate-fade-in font-sans",
   badgeIcon: "w-4 h-4 text-blue-400",
   
-  // Heading - Kept gradients, they pop well on dark
-  heading: "text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-normal leading-tight",
-  headingSpan1: "block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 animate-text-gradient",
-  headingSpan2: "block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-text-gradient animation-delay-300",
+  // Heading - Modern sans-serif with balanced size
+  heading: "text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight font-sans",
+  headingSpan1: "block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400",
+  headingSpan2: "block text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mt-2",
   
   videoModal: {
     overlay: "fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fadeIn",
@@ -1774,7 +1777,8 @@ export const bannerStyles = {
   },
 
   // Description - Lighter text
-description: "text-lg sm:text-xl font-serif font-normal not-italic text-gray-300 leading-relaxed mt-2 sm:mt-4",
+  // Description - Clean sans-serif with improved readability
+  description: "text-lg sm:text-xl lg:text-2xl text-slate-300 font-normal leading-relaxed max-w-2xl font-sans",
   
   // Features
   featuresGrid: "grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 animate-fade-in opacity-0 animation-delay-700",
@@ -1785,10 +1789,10 @@ description: "text-lg sm:text-xl font-serif font-normal not-italic text-gray-300
   
   // Buttons
   buttonsContainer: "flex flex-col sm:flex-row gap-3 sm:gap-4 pt-3 animate-fade-in opacity-0 animation-delay-900",
-  // Primary button pops
-  buttonGetStarted: "px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold font-serif not-italic rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform text-sm sm:text-base text-center border border-transparent",
-  // Secondary button dark theme
-  buttonViewDemo: "px-6 py-3 sm:px-8 sm:py-3 bg-transparent cursor-pointer text-white font-semibold font-serif not-italic rounded-xl border border-gray-600 hover:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300 transform text-sm sm:text-base text-center",
+  // Primary button - Bold sans-serif for impact
+  buttonGetStarted: "px-6 py-3 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform text-sm sm:text-base text-center border border-transparent font-sans",
+  // Secondary button - Sans-serif styling
+  buttonViewDemo: "px-6 py-3 sm:px-8 sm:py-3 bg-transparent cursor-pointer text-white font-medium rounded-xl border border-gray-600 hover:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300 transform text-sm sm:text-base text-center font-sans",
   
   // Image
   imageContainer: "flex items-center justify-center",
@@ -2379,82 +2383,6 @@ export const coursePageCustomStyles = `
 `;
 
 // Add these to the existing dummyStyles.js file
-export const facultyStyles = {
-  // Layout & Container - Dark theme
-  container: "min-h-screen pt-12 sm:pt-16 bg-gradient-to-br from-black via-gray-900 to-purple-950",
-  
-  // Header Section
-  header: "relative py-12 sm:py-16 px-4 text-center bg-transparent",
-  headerContent: "relative z-10 max-w-4xl mx-auto",
-  title: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-blue-400 mb-3 sm:mb-4 font-cinematic tracking-wide",
-  titleDivider: "w-20 sm:w-28 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-4 rounded-full opacity-80",
-  subtitle: "text-base sm:text-lg md:text-xl text-blue-200 max-w-2xl mx-auto leading-relaxed",
-  
-  // Faculty Grid
-  facultySection: "py-8 px-4 sm:px-6 lg:px-8",
-  facultyContainer: "max-w-7xl mx-auto",
-  facultyGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10",
-  
-  // Teacher Card - Dark theme
-  card: "group",
-  teacherCard: "bg-gray-800/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 p-4 sm:p-6 border border-gray-700 hover:border-blue-500/50",
-  
-  // Image Section
-  imageContainer: "relative mb-4 sm:mb-6",
-  imageWrapper: "w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden border-4 border-gray-700 group-hover:border-blue-400 transition-all",
-  image: "w-full h-full rounded-full object-cover",
-  
-  // Experience Badge
-  experienceBadge: "absolute -bottom-3 left-1/2 transform -translate-x-1/2",
-  experienceBadgeContent: "bg-gradient-to-r from-green-600 to-emerald-700 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg border border-green-500",
-  
-  // Teacher Info
-  teacherInfo: "text-center mb-3 sm:mb-4 px-1",
-  teacherName: "text-lg sm:text-xl font-bold text-white mb-1 font-cinematic truncate group-hover:text-blue-300 transition-colors",
-  teacherQualification: "text-sm sm:text-sm text-blue-300 font-semibold mb-2 truncate",
-  teacherBio: "text-xs sm:text-sm text-gray-400 leading-relaxed line-clamp-3",
-  
-  // Rating Section (fixed for row layout)
-  ratingContainer: "mb-4 flex justify-center",
-  starRating: "flex flex-row items-center space-x-2",
-  starsContainer: "flex flex-row items-center space-x-1 bg-gray-900/50 rounded-full px-2 py-1", 
-  starButton: "transition-all duration-200 transform hover:scale-125 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500",
-  starButtonActive: "text-yellow-400 fill-current",
-  starButtonInactive: "text-gray-600",
-  starIcon: "w-5 h-5",
-
-  
-  // Social Icons - Adjusted for dark mode
-  socialContainer: "flex justify-center gap-3 sm:gap-4 mt-2",
-  socialIcon: "transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 p-3 sm:p-3.5 rounded-2xl shadow-lg hover:shadow-xl border border-gray-700/50",
-  socialIconEmail: "bg-gradient-to-br from-green-900 to-green-700 hover:from-green-700 hover:to-green-500",
-  socialIconLinkedin: "bg-gradient-to-br from-blue-900 to-blue-700 hover:from-blue-700 hover:to-blue-500",
-  socialIconInstagram: "bg-gradient-to-br from-purple-900 to-pink-900 hover:from-purple-700 hover:to-pink-700",
-  socialIconSvg: "w-4 h-4 sm:w-5 sm:h-5 text-white",
-  
-  // CSS Animations and Utilities (Unchanged)
-  animations: `
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
-    .font-cinematic {
-      font-family: 'Cinzel', 'Playfair Display', serif;
-    }
-    .line-clamp-3 { 
-      display: -webkit-box; 
-      -webkit-line-clamp: 3; 
-      -webkit-box-orient: vertical; 
-      overflow: hidden; 
-    }
-    .truncate { 
-      overflow: hidden; 
-      text-overflow: ellipsis; 
-      white-space: nowrap; 
-    }
-    @media (max-width: 640px) {
-      .group:hover { transform: none; }
-    }
-  `
-};
-
 // Add these to your existing assets/dummyStyles.js
 
 export const footerStyles = {
@@ -2656,14 +2584,14 @@ export const navbarStyles = {
   innerContainer: "flex items-center justify-between h-12",
   
   // Logo
-  logo: "flex items-center space-x-3 group cursor-pointer flex-shrink-0",
+  logo: "flex items-center space-x-3 group cursor-pointer flex-shrink-0 mr-auto",
   logoIconContainer: "relative",
   logoIcon: "w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center transform transition-all duration-300 shadow-lg shadow-blue-900/20",
   logoIconGlow: "absolute -inset-1 bg-blue-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition-opacity duration-300",
   logoText: "font-bold text-lg bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent",
   
   // Desktop Navigation - Dark theme
-  desktopNav: "hidden lg:flex items-center justify-center flex-1 max-w-2xl",
+  desktopNav: "hidden lg:flex items-center justify-center flex-grow max-w-2xl mx-4",
   desktopNavContainer: "flex items-center space-x-1 bg-gray-900/80 backdrop-blur-sm rounded-2xl p-1.5 shadow-inner border border-gray-800",
   desktopNavItem: "group relative px-4 py-2 rounded-xl transition-all duration-300 flex items-center space-x-2 hover:bg-gray-800",
   // Active item pops with blue, matching the reference image "Browse" button style
@@ -2672,7 +2600,7 @@ export const navbarStyles = {
   desktopNavText: "text-sm font-medium text-gray-300 group-hover:text-white",
   
   // Auth Buttons - Dark theme
-  authContainer: "flex items-center space-x-3 flex-shrink-0",
+  authContainer: "flex items-center space-x-3 flex-shrink-0 ml-8",
   // Primary button (Get Started/Login)
   loginButton: "hidden lg:flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-lg hover:shadow-blue-900/50 transform transition-all duration-300 group border border-transparent",
   // Secondary button (Sell/Logout)

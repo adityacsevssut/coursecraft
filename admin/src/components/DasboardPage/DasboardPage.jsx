@@ -75,7 +75,7 @@ const DashboardPage = () => {
     setError(null);
 
     const fetchStats = () =>
-      fetch(`${API_BASE}/api/booking/stats`)
+      fetch(`${API_BASE}/api/bookings/stats`)
         .then((r) => r.json())
         .then((j) =>
           j.success ? j.stats : Promise.reject(j.message || "Stats error")
@@ -122,8 +122,8 @@ const DashboardPage = () => {
               sale != null
                 ? fmtCurrency(sale)
                 : orig != null
-                ? fmtCurrency(orig)
-                : "Free";
+                  ? fmtCurrency(orig)
+                  : "Free";
           } else if (c.pricingType && c.pricingType !== "free") {
             priceDisplay = "₹0";
           }

@@ -11,9 +11,19 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // Middleware
-app.use(
+appapp.use(
   cors({
+<<<<<<< HEAD
     origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://coursecraft-fs.onrender.com", "https://coursecraft-admin.onrender.com"],
+=======
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+      "https://coursecraft-fs.onrender.com",
+      "https://coursecraft-admin.onrender.com",
+    ],
+>>>>>>> f04a91608330538cd6fc31ba077004dcfbf3417b
     credentials: true,
   })
 );

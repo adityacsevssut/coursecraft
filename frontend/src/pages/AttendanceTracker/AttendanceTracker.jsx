@@ -6,6 +6,8 @@ import { useUser, useClerk } from '@clerk/clerk-react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
+
 const AttendanceTracker = () => {
   const navigate = useNavigate();
   const { isSignedIn, user } = useUser(); // Check authentication
@@ -31,7 +33,7 @@ const AttendanceTracker = () => {
     const fetchSubjects = async () => {
       try {
         const userId = user?.id || localStorage.getItem('userId') || 'demo-user';
-        const response = await axios.get(`http://localhost:4000/api/attendance/${userId}`);
+        const response = await axios.get(`${API_BASE}/api/attendance/${userId}`);
         setSubjects(response.data);
       } catch (error) {
         console.error('Error fetching subjects:', error);

@@ -6,6 +6,8 @@ import { useUser, useClerk } from '@clerk/clerk-react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
+
 const AttendanceForm = () => {
   const navigate = useNavigate();
   const { isSignedIn, user } = useUser(); // Check authentication
@@ -65,7 +67,7 @@ const AttendanceForm = () => {
       };
 
       // Send to backend
-      await axios.post('http://localhost:4000/api/attendance', attendanceData);
+      await axios.post(`${API_BASE}/api/attendance`, attendanceData);
 
       // Optionally clear localStorage cache if we were using it
       // localStorage.removeItem('attendanceSubjects');

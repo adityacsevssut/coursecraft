@@ -6,6 +6,8 @@ import { useUser, useClerk } from '@clerk/clerk-react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 
+const API_BASE = "https://coursecraft-backend-gjbh.onrender.com";
+
 const AttendanceResult = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -32,7 +34,7 @@ const AttendanceResult = () => {
 
     const fetchSubject = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/attendance/single/${id}`);
+        const response = await axios.get(`${API_BASE}/api/attendance/single/${id}`);
         const data = response.data;
         setSubject(data);
         setPresentClasses(data.presentClasses || 0);
@@ -60,7 +62,7 @@ const AttendanceResult = () => {
 
     try {
       // Update in backend
-      await axios.put(`http://localhost:4000/api/attendance/${subject._id || subject.id}`, {
+      await axios.put(`${API_BASE}/api/attendance/${subject._id || subject.id}`, {
         presentClasses: newValue
       });
 
@@ -84,7 +86,7 @@ const AttendanceResult = () => {
   const handleDeleteSubject = async () => {
     if (window.confirm('Are you sure you want to delete this subject? This action cannot be undone.')) {
       try {
-        await axios.delete(`http://localhost:4000/api/attendance/${subject._id || subject.id}`);
+        await axios.delete(`${API_BASE}/api/attendance/${subject._id || subject.id}`);
         // Redirect to subjects list after deletion
         navigate('/attendance-tracker');
       } catch (error) {

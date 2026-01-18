@@ -16,7 +16,8 @@ const AttendanceForm = () => {
     studentName: '',
     subjectName: '',
     totalClasses: '',
-    startDate: ''
+    startDate: '',
+    collegeName: ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +45,7 @@ const AttendanceForm = () => {
 
     // Validate form
     if (!formData.studentName || !formData.subjectName || !formData.totalClasses || !formData.startDate) {
-      alert('Please fill in all fields');
+      alert('Please fill in all required fields');
       return;
     }
 
@@ -62,7 +63,7 @@ const AttendanceForm = () => {
         subjectName: formData.subjectName,
         totalClasses: parseInt(formData.totalClasses),
         startDate: formData.startDate,
-        collegeName: 'CourseCraft University', // Default college name
+        collegeName: formData.collegeName || 'CourseCraft University', // Use user-provided college name
         userId: user?.id || localStorage.getItem('userId') || 'demo-user'
       };
 
@@ -141,7 +142,22 @@ const AttendanceForm = () => {
                   min="1"
                   className="w-full px-4 py-3 bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-white"
                   placeholder="Enter total number of classes"
-                  required
+                />
+              </div>
+
+              {/* College Name */}
+              <div>
+                <label className="flex items-center gap-2 text-lg font-semibold mb-2 text-blue-300">
+                  <GraduationCap className="w-5 h-5 text-purple-500" />
+                  College Name
+                </label>
+                <input
+                  type="text"
+                  name="collegeName"
+                  value={formData.collegeName}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-white"
+                  placeholder="Enter your college name"
                 />
               </div>
 
